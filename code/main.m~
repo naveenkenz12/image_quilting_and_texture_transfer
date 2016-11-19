@@ -1,0 +1,20 @@
+im=imread('../images/textures/coffee.jpg');
+[l,h,b] = size(im);
+b_size=[floor(l/5),floor(h/5)];
+o_size=floor(b_size/10);
+out_size=[l*10,h*10];
+out_image=zeros(l*10,h*10,b);
+tmp=zeros(b_size(1),b_size(2),b);
+for i=1:b_size(1):out_size(1)
+    left=min(i+b_size(1),l);
+    for j=1:b_size(2):out_size(2)
+        bottom=min(j+b_size(2),h);
+        tmp = find_patch(im,b_size,o_size,i,j);
+    end
+   l
+end
+out_image
+
+
+
+
