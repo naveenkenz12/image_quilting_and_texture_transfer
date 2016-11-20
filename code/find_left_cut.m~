@@ -1,0 +1,43 @@
+function [ out ]= find_left_cut(image,overlap)
+    overlap1=image(1:size(overlap,1),:,:);
+    surface=(overlap-overlap1).^2;
+    surf=surface(:,:,1)+surface(:,:,2)+surface(:,:,3);
+    cost=zeros(size(surf))
+    cost(:,1)=surf(:,1)
+    for i=2:size(cost,2)
+        for j=1:size(cost,1)
+            if(j>1 && j<size(cost,1))
+                cost(i,j)=surf(i,j)+min(cost(i-1,j-1),cost(i-1,j),cost(i-1,j+1));
+            elseif(j==1)
+                cost(i,j)=surf(i,j)+min(cost(i-1,j),cost(i-1,j+1));
+            elseif(j==size(cost,1))
+                cost(i,j)=surf(i,j)+min(cost(i-1,j-1),cost(i-1,j));
+            end
+        end
+    end
+
+    border=zeros(size(cost,2));
+    border=border+1;
+    n=size(border);
+    [min_cost,border(n)]=min(cost(size(cost,2),:));
+    for i=n-1:-1:1
+        min_cost=min_cost-surf(border(i+1),i+1);
+        if(min_cost==cost(border(i+1),i))
+            border(i)=border(i+1);
+        end
+        if(border(i+1)>1)
+            if min_cost==cost(border(i+1)-1,i)
+                border(i)=border(i+1)-1;
+            end
+        end
+        if(border(i+1)<size(cost,1))
+            if min_cost==cost(border(i+1)+1,i) 
+                border(i)=border(i+1)+1;
+            end
+        end
+    end
+    
+    for i=1:n
+        image(1:border(i),i)=overlap(1:border(i),i);
+    end   
+    out=image;
