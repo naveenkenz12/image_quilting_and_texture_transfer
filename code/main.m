@@ -1,4 +1,4 @@
-im=imread('../images/textures/jute.jpg');
+im=imread('../images/textures/text.jpg');
 [l,h,b] = size(im);
 b_size=[floor(l/10),floor(h/10)];
 o_size=floor(b_size/6);

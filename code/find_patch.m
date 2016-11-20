@@ -18,7 +18,7 @@ function [ out ]= find_patch(inp,im,b_size, o_size, i,j)
                  left_over2=im(lx:lx+size(left_over1,1)-1,ly:ly+size(left_over1,2)-1,:);
                  error=sum(sum(sum((left_over2-left_over1).^2)));
                  if error < min_error
-                     min_error=error;
+                     min_error=error
                      best=[lx,ly];
                  end
             end
@@ -37,7 +37,7 @@ function [ out ]= find_patch(inp,im,b_size, o_size, i,j)
                  error=sum(sum(sum((top_over2-top_over1).^2)));
                  if error < min_error
                      
-                     min_error=error;
+                     min_error=error
                      best=[lx,ly];
                  end
             end
@@ -64,7 +64,7 @@ function [ out ]= find_patch(inp,im,b_size, o_size, i,j)
                  error=error1+error2;
                  if error < min_error
                      
-                     min_error=error;
+                     min_error=error
                      best=[lx,ly];
                  end
             end

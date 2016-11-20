@@ -43,6 +43,6 @@ function [ out ]= find_top_cut(image,overlap)
     end
     
     for i=1:n
-        image(i,1:border(i))=overlap(i,1:border(i));
+        image(i,1:border(i),:)=overlap(i,1:border(i),:);
     end    
     out=image;

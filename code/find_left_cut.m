@@ -43,6 +43,6 @@ function [ out ]= find_left_cut(image,overlap)
     end
     
     for i=1:n
-        image(1:border(i),i)=overlap(1:border(i),i);
+        image(1:border(i),i,:)=overlap(1:border(i),i,:);
     end   
     out=image;
