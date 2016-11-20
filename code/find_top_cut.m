@@ -6,13 +6,8 @@ function [ out ]= find_top_cut(image,overlap)
     cost(1,:)=surf(1,:);
     for i=2:size(cost,1)
         for j=1:size(cost,2)
-            if(j>1 && j<size(cost,2))
-                cost(i,j)=surf(i,j)+min([cost(i-1,j-1),cost(i-1,j),cost(i-1,j+1)]);
-            elseif(j==1)
-                cost(i,j)=surf(i,j)+min([cost(i-1,j),cost(i-1,j+1)]);
-            elseif(j==size(cost,2))
-                cost(i,j)=surf(i,j)+min([cost(i-1,j-1),cost(i-1,j)]);
-            end
+                cost(i,j)=surf(i,j)+min([cost(i-1,max(1,j-1)),cost(i-1,j),cost(i-1,min(size(cost,2),j+1))]);
+            
         end
     end
 
