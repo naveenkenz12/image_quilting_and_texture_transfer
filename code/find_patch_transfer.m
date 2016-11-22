@@ -9,10 +9,10 @@ function [ out ]= find_patch_transfer(inp,inp_ill,im,im_ill,b_size, o_size, i,j,
         min_error=intmax;
         %out=im(r1:r1+ret_size(1)-1,r2:r2+ret_size(2)-1,:);
         %for lx=1:M+1-ret_size(1)
-             %for ly=1:N+1-ret_size(2)
-             for count=1:4000
-                 lx=randi([1,M+1-ret_size(1)],1,1);
-                 ly=randi([1,N+1-ret_size(2)],1,1);
+         %    for ly=1:N+1-ret_size(2)
+           for count=1:4000
+            lx=randi([1,M+1-ret_size(1)],1,1);
+           ly=randi([1,N+1-ret_size(2)],1,1);
         
              block=im_ill(lx:lx+ret_size(1)-1,ly:ly+ret_size(2)-1);
                  err1=sum(sum((block-inp_ill).^2));
@@ -21,9 +21,9 @@ function [ out ]= find_patch_transfer(inp,inp_ill,im,im_ill,b_size, o_size, i,j,
                      min_error=error;
                      best=[lx,ly];
                  end
-             end
-                 %end
-         %end
+             %end
+             % end
+         end
          tmp=im(best(1):best(1)+ret_size(1)-1,best(2):best(2)+ret_size(2)-1,:);
          out=tmp;
         
@@ -34,7 +34,7 @@ function [ out ]= find_patch_transfer(inp,inp_ill,im,im_ill,b_size, o_size, i,j,
         if (size(inp,1)>o_size(1))
         left_over1=inp(1:o_size(1),:,:);
          %for lx=1:M+1-ret_size(1)
-             %for ly=1:N+1-ret_size(2)
+            %for ly=1:N+1-ret_size(2)
              for count=1:4000
                  lx=randi([1,M+1-ret_size(1)],1,1);
                  ly=randi([1,N+1-ret_size(2)],1,1);
@@ -47,9 +47,9 @@ function [ out ]= find_patch_transfer(inp,inp_ill,im,im_ill,b_size, o_size, i,j,
                      min_error=error;
                      best=[lx,ly];
                  end
-             end
-                 %end
-         %end
+            % end
+              % end
+         end
          left_over1=inp(1:o_size(1),:,:);
          tmp=im(best(1):best(1)+ret_size(1)-1,best(2):best(2)+ret_size(2)-1,:);
          out=find_left_cut(tmp,left_over1);
@@ -62,10 +62,9 @@ function [ out ]= find_patch_transfer(inp,inp_ill,im,im_ill,b_size, o_size, i,j,
          %for lx=1:M+1-ret_size(1)
              %for ly=1:N+1-ret_size(2)
              for count=1:4000
-                 lx=randi([1,M+1-ret_size(1)],1,1);
-                 ly=randi([1,N+1-ret_size(2)],1,1);
-        
-             top_over2=im(lx:lx+size(top_over1,1)-1,ly:ly+size(top_over1,2)-1,:);
+             lx=randi([1,M+1-ret_size(1)],1,1);
+        ly=randi([1,N+1-ret_size(2)],1,1);
+                     top_over2=im(lx:lx+size(top_over1,1)-1,ly:ly+size(top_over1,2)-1,:);
                  block=im_ill(lx:lx+ret_size(1)-1,ly:ly+ret_size(2)-1);
                  err1=sum(sum((block-inp_ill).^2));
                  error=((1-alpha)*sum(sum(sum((top_over2-top_over1).^2))))+(alpha*err1);
@@ -73,9 +72,9 @@ function [ out ]= find_patch_transfer(inp,inp_ill,im,im_ill,b_size, o_size, i,j,
                      min_error=error;
                      best=[lx,ly];
                  end
-             end    
-             %end
-         %end
+             %end    
+        %     end
+         end
           top_over1=inp(:,1:o_size(2),:);
          tmp=im(best(1):best(1)+ret_size(1)-1,best(2):best(2)+ret_size(2)-1,:);
          out=find_top_cut(tmp,top_over1);
@@ -89,10 +88,10 @@ function [ out ]= find_patch_transfer(inp,inp_ill,im,im_ill,b_size, o_size, i,j,
        left_over1=inp(1:o_size(1),:,:);
        min_error=intmax;
          %for lx=1:M+1-ret_size(1)
-             %for ly=1:N+1-ret_size(2)
-              for count=1:4000
-                  lx=randi([1,M+1-ret_size(1)],1,1);
-                 ly=randi([1,N+1-ret_size(2)],1,1);
+          %   for ly=1:N+1-ret_size(2)
+           for count=1:4000
+              lx=randi([1,M+1-ret_size(1)],1,1);
+            ly=randi([1,N+1-ret_size(2)],1,1);
         
              top_over2=im(lx:lx+size(top_over1,1)-1,ly:ly+size(top_over1,2)-1,:);
                  left_over2=im(lx:lx+size(left_over1,1)-1,ly:ly+size(left_over1,2)-1,:);
@@ -103,12 +102,12 @@ function [ out ]= find_patch_transfer(inp,inp_ill,im,im_ill,b_size, o_size, i,j,
                  error2=sum(sum(sum((left_over2-left_over1).^2)));
                  error=((1-alpha)*(error1+error2))+(alpha*err1);
                  if error < min_error
-                     min_error=error
+                     min_error=error;
                      best=[lx,ly];
                  end
-              end   
-              %end
-         %end
+             % end   
+           %   end
+         end
          tmp=im(best(1):best(1)+ret_size(1)-1,best(2):best(2)+ret_size(2)-1,:);
         top_over1=inp(:,1:o_size(2),:);
        left_over1=inp(1:o_size(1),:,:);
